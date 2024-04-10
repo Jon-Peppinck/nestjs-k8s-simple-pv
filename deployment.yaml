@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: jonpeppinck/nestjs-helloworld:latest
+          image: jonpeppinck/nestjs-k8s-pv:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -33,7 +33,7 @@ spec:
               memory: '128Mi'
           volumeMounts:
             - name: text-volume
-              mountPath: /app/temp.txt
+              mountPath: /text/temp.txt
               subPath: temp.txt
       volumes:
         - name: text-volume
