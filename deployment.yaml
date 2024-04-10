@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestjs-hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api: nestjs-api
+  template:
+    metadata:
+      labels:
+        api: nestjs-api
+    spec:
+      containers:
+        - name: api
+          image: jonpeppinck/nestjs-helloworld
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            periodSeconds: 10
+            initialDelaySeconds: 2
+          resources:
+            limits:
+              cpu: '0.5'
+              memory: '256Mi'
+            requests:
+              cpu: '0.1'
+              memory: '128Mi'
+          volumeMounts:
+            - name: text-volume
+              mountPath: /app/temp.txt
+              subPath: temp.txt
+      volumes:
+        - name: text-volume
+          persistentVolumeClaim:
+            claimName: pvc
