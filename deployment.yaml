@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: jonpeppinck/nestjs-helloworld
+          image: jonpeppinck/nestjs-helloworld:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
